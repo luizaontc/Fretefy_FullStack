@@ -1,3 +1,44 @@
-<p>
-  regiao works!
-</p>
+<div *ngIf="currentTab === 'listar'">
+  <h3>Listagem de Regiões</h3>
+  <table *ngIf="regioes.length > 0; else noRegioes">
+    <thead>
+      <tr>
+        <th>Nome</th>
+        <th>Status</th>
+        <th>Ação</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let regiao of regioes">
+        <td>{{ regiao.nome }}</td>
+        <td>{{ regiao.status ? 'Ativo' : 'Inativo' }}</td>
+        <td>
+          <button (click)="editarRegiao(regiao)">Editar</button>
+          <button (click)="deletarRegiao(regiao.id)">Deletar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <ng-template #noRegioes>
+    <p>Nenhuma região encontrada.</p>
+  </ng-template>
+</div>
+
+
+<div *ngIf="currentTab === 'criar'">
+  <h3>Criar Nova Região</h3>
+  <form [formGroup]="regiaoForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="nome">Nome:</label>
+      <input id="nome" formControlName="nome" />
+      <div *ngIf="regiaoForm.get('nome')?.invalid && regiaoForm.get('nome')?.touched">
+        <small>O nome é obrigatório.</small>
+      </div>
+    </div>
+    <div>
+      <label for="status">Status:</label>
+      <input type="checkbox" id="status" formControlName="status" />
+    </div>
+    <button type="submit" [disabled]="regiaoForm.invalid">Salvar</button>
+  </form>
+</div>
