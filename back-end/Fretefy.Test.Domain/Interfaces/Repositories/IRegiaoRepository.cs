@@ -9,6 +9,7 @@ namespace Fretefy.Test.Domain.Interfaces.Repositories
     public interface IRegiaoRepository
     {
         Regiao NewRegiao(Regiao regiao);
+        Regiao UpdateRegiao(Regiao regiao);
         Task<List<RegiaoCidade>> NewRegiaoCidade(List<RegiaoCidade> regiaoCidade);
         IQueryable<Regiao> List();
         IEnumerable<Regiao> ListByName(string name);

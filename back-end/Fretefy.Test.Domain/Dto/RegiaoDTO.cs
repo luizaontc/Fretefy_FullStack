@@ -11,6 +11,7 @@ namespace Fretefy.Test.Domain.Dto
     public class RegiaoDTO
     {
         public RegiaoDTO() { }
+        public Guid Id { get; set; }
         [Required(ErrorMessage = "O Nome é obrigatório")]
         public string Nome { get; set; }
         public List<CidadeDTO> cidades { get; set; }

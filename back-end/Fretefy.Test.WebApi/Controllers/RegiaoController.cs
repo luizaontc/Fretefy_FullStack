@@ -34,24 +34,38 @@ namespace Fretefy.Test.WebApi.Controllers
             return Ok(regioes);
         }
 
-        [HttpPost]
+        [HttpPost("newRegiao")]
         public IActionResult Post([FromBody] RegiaoDTO regiao)
         {
             try
             {
-                _regiaoService.NewRegiao(regiao);
+                var newRegiao = _regiaoService.NewRegiao(regiao);
 
-                return Ok(regiao);
+                return Ok(newRegiao);
             }
             catch (ArgumentException ex)
             {
                 return BadRequest(ex.Message);
             }
-
         }
 
-        [HttpPut]
-        public IActionResult UpdateStatus([FromQuery] string nome)
+        [HttpPut("updateRegiao")]
+        public IActionResult Put([FromBody] RegiaoDTO payload)
+        {
+            try
+            {
+                var regiao = _regiaoService.UpdateRegiao(payload);
+
+                return Ok(regiao);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        [HttpPost("updateStatus")]
+        public IActionResult Post([FromQuery] string nome)
         {
             try
             {

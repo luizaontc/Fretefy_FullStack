@@ -87,5 +87,12 @@ namespace Fretefy.Test.Domain.Services
                   .Select(g => g.Key) 
                   .Any();
         }
+
+        public Regiao UpdateRegiao(RegiaoDTO dto)
+        {
+            Regiao regiao = _mapper.Map<Regiao>(dto);
+
+            return _regiaoRepository.UpdateRegiao(regiao);
+        }
     }
 }

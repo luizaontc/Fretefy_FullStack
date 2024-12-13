@@ -13,8 +13,8 @@
         <td>{{ regiao.nome }}</td>
         <td>{{ regiao.status ? 'Ativo' : 'Inativo' }}</td>
         <td>
-          <button (click)="editarRegiao(regiao)">Editar</button>
-          <button (click)="deletarRegiao(regiao.id)">Deletar</button>
+          <button (click)="carregarEdicao(regiao)">Editar</button>
+          <button (click)="changeStatus(regiao.nome)">Alterar Status</button>
         </td>
       </tr>
     </tbody>
@@ -24,6 +24,7 @@
   </ng-template>
 </div>
 
+<button (click)="carregarCriacao()">Nova Região</button>
 
 <div *ngIf="currentTab === 'criar'">
   <h3>Criar Nova Região</h3>
@@ -35,10 +36,24 @@
         <small>O nome é obrigatório.</small>
       </div>
     </div>
-    <div>
-      <label for="status">Status:</label>
-      <input type="checkbox" id="status" formControlName="status" />
+
+    <div formArrayName="cidades">
+      <div *ngFor="let cidade of cidades.controls; let i = index">
+        <div [formGroupName]="i">
+          <label for="cidadeNome">Cidade {{ i + 1 }}:</label>
+          <label for="cidadeUf">UF {{ i + 1 }}:</label>
+          <input id="cidadeNome" formControlName="nome" />
+          <input id="cidadeUf" formControlName="uf" />
+          <button type="button" (click)="removeCidade(i)">Remover Cidade</button>
+          <div *ngIf="cidade.get('nome')?.invalid && cidade.get('nome')?.touched">
+            <small>O nome da cidade é obrigatório.</small>
+          </div>
+        </div>
+      </div>
+      <button type="button" (click)="addCidade()">Adicionar Cidade</button>
     </div>
+
     <button type="submit" [disabled]="regiaoForm.invalid">Salvar</button>
+    <button (click)="currentTab = 'listar'" type="button">Cancelar</button>
   </form>
 </div>

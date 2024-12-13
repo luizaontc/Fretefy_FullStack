@@ -10,7 +10,7 @@ export class Regiao {
   constructor(nome: string, status: boolean, cidades: Cidade[] = [],id?: string) {
     this.id = id || uuidv4();;
     this.nome = nome;
-    this.status = status;
+    this.status = true;
     this.cidades = cidades;
   }
 
@@ -22,4 +22,5 @@ export class Regiao {
     this.cidades.push(cidade);
   }
 }
+
   

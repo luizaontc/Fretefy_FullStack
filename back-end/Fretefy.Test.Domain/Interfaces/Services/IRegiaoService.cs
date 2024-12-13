@@ -9,6 +9,7 @@ namespace Fretefy.Test.Domain.Interfaces
     {
         Regiao Get(Guid id);
         Regiao NewRegiao(RegiaoDTO dto);
+        Regiao UpdateRegiao(RegiaoDTO dto);
         IEnumerable<Regiao> List();
         IEnumerable<Regiao> ListByName(string name);
         IEnumerable<Regiao> Query(string terms);

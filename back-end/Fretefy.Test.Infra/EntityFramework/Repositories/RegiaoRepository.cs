@@ -58,5 +58,12 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
             _dbContext.SaveChanges();
             return regiaoCidade;
         }
+
+        public Regiao UpdateRegiao(Regiao regiao)
+        {
+            _dbSet.Update(regiao);
+            _dbContext.SaveChanges();
+            return regiao;
+        }
     }
 }
