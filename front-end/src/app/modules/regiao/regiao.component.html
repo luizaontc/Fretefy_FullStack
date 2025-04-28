@@ -1,3 +1,133 @@
-<p>
-  regiao works!
-</p>
+<div *ngIf="this.url === 'regiao'">
+  <form [formGroup]="regiaoForm">
+    <div class="form-group d-flex justify-content-between align-items-center">
+      <label for="nome">Lista de Regiões</label>
+      <div>
+        <button class="btn btn-success me-2" (click)="exportarParaExcel()">
+          <i class="bi bi-file-earmark-excel me-1"></i>
+          Exportar para Excel
+        </button>
+        <button type="button" class="btn btn-primary" (click)="alterarUrl('cadastrarRegiao')">Adicionar Região</button>
+      </div>
+    </div>
+
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Nome da região</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let regiao of regioes">
+          <td>
+            {{regiao.nome}}
+          </td>
+          <td>
+            <span [class]="regiao.status ? 'badge bg-success' : 'badge bg-danger'">
+              {{regiao.status ? 'Ativo' : 'Inativo'}}
+            </span>
+          </td>
+          <td>
+            <button type="button" class="btn btn-primary" (click)="editarRegiao(regiao)">Editar</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </form>
+</div>
+
+
+<div *ngIf="this.url === 'cadastrarRegiao'">
+  <form [formGroup]="regiaoForm" (ngSubmit)="salvarNovaRegiao()">
+    <div class="form-group">
+      <label for="nome">Nome da Região</label>
+      <input type="text" id="nome" formControlName="nome" class="form-control">
+    </div>
+
+    <h3>Cidades</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Cidade</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="cidades">
+        <tr *ngFor="let cidade of cidadesFormArray.controls; let i = index" [formGroupName]="i">
+          <td>
+            <select formControlName="id" class="form-control">
+              <option [ngValue]="null">Selecione uma cidade</option>
+              <option *ngFor="let cidade of cidadesSelect" [ngValue]="cidade.id">
+                {{ cidade.nome }} - {{ cidade.uf }}
+              </option>
+            </select>
+          </td>
+          <td class="text-center">
+            <button type="button" class="btn btn-danger" (click)="removerCidade(i)">Remover</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+      <button type="button" (click)="adicionarCidade()" class="btn btn-primary">Adicionar Cidade</button>
+    <br><br>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">Salvar</button>
+      <button type="button" class="btn btn-danger" (click)="alterarUrl('regiao')">Voltar</button>
+    </div>
+  </form>
+</div>
+
+
+<div *ngIf="this.url === 'editarRegiao'">
+  <form [formGroup]="regiaoFormEdicao" (ngSubmit)="salvarEditarRegiao()">
+    <div class="form-group">
+      <label for="nome">Nome da Região</label>
+      <input type="text" id="nome" formControlName="nome" class="form-control">
+    </div>
+
+    <div class="form-group mb-3">
+      <div class="form-check form-switch">
+        <input type="checkbox" id="ativo" formControlName="ativo" class="form-check-input">
+        <label class="form-check-label" for="ativo">Região Ativa</label>
+      </div>
+    </div>
+
+    <h3>Cidades</h3>
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Cidade</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody formArrayName="cidades">
+        <tr *ngFor="let cidade of cidadesFormArrayEdicao.controls; let i = index" [formGroupName]="i">
+          <td>
+            <select formControlName="id" class="form-control">
+              <option [ngValue]="null">Selecione uma cidade</option>
+              <option *ngFor="let cidade of cidadesSelect" [ngValue]="cidade.id">
+                {{ cidade.nome }} - {{ cidade.uf }}
+              </option>
+            </select>
+          </td>
+          <td class="text-center">
+            <button type="button" class="btn btn-danger" (click)="removerCidadeEdicao(i)">Remover</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+      <button type="button" (click)="adicionarCidadeEdicao()" class="btn btn-primary">Adicionar Cidade</button>
+    <br><br>
+
+    <div class="form-group">
+      <button type="submit" class="btn btn-success">Salvar</button>
+      <button type="button" class="btn btn-danger" (click)="alterarUrl('regiao')">Voltar</button>
+    </div>
+  </form>
+</div>

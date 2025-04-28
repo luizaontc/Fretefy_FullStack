@@ -67,7 +67,7 @@ namespace Fretefy.Test.WebApi.Controllers
 
         [HttpGet]
         [Route("/buscarRegiao")]
-        public async Task<IActionResult> GetById(int page, int pageSize)
+        public async Task<IActionResult> Get(int page, int pageSize)
         {
             try
             {

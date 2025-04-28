@@ -13,7 +13,7 @@ namespace Fretefy.Test.Domain.Interfaces.Repositories
         Task<Regiao> AtualizarRegiao(Regiao entity);
         Task<Regiao> GetRegiaoById(Guid id);
         Task<IEnumerable<Regiao>> GetRegiao(int page, int pageSize);
-        Task<bool> ExisteRegiao(string nomeRegiao);
+        Task<bool> ExisteRegiao(string nomeRegiao, Guid? IdRegiao);
         Task<IEnumerable<RegiaoCidade>> AdicionarRegiaoCidades(List<RegiaoCidade> entities);
         Task<IEnumerable<RegiaoCidade>> GetRegiaoCidades(Guid idRegiao);
         Task<IEnumerable<RegiaoCidade>> RemoverRegiaoCidade(List<RegiaoCidade> entities, Guid idRegiao);

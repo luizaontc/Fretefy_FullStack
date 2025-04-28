@@ -1,8 +1,10 @@
 ﻿using Fretefy.Test.Domain.Entities;
 using Fretefy.Test.Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace Fretefy.Test.Infra.EntityFramework.Repositories
 {
@@ -13,6 +15,11 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
         public CidadeRepository(DbContext dbContext)
         {
             _dbSet = dbContext.Set<Cidade>();
+        }
+
+        public async Task<Cidade> GetCidadeById(Guid id)
+        {
+            return await _dbSet.Where(x => x.Id == id).FirstOrDefaultAsync();
         }
 
         public IQueryable<Cidade> List()

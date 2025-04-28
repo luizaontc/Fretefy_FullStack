@@ -43,9 +43,9 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
             return entity;
         }
 
-        public async Task<bool> ExisteRegiao(string nomeRegiao)
+        public async Task<bool> ExisteRegiao(string nomeRegiao, Guid? IdRegiao)
         {
-            var response = await _dbSet.AnyAsync(x => x.Nome == nomeRegiao);
+            var response = await _dbSet.AnyAsync(x => x.Nome.ToUpper() == nomeRegiao.ToUpper() && (IdRegiao != null || IdRegiao == Guid.Empty ? x.Id != IdRegiao : 1==1));
 
             return response;
         }
@@ -66,7 +66,7 @@ namespace Fretefy.Test.Infra.EntityFramework.Repositories
 
         public async Task<IEnumerable<RegiaoCidade>> GetRegiaoCidades(Guid idRegiao)
         {
-            return await _dbSetRegiaoCidade.Where(x => x.Id == idRegiao).ToListAsync();
+            return await _dbSetRegiaoCidade.Where(x => x.IdRegiao == idRegiao).ToListAsync();
         }
 
         public async Task<IEnumerable<RegiaoCidade>> RemoverRegiaoCidade(List<RegiaoCidade> entities, Guid idRegiao)

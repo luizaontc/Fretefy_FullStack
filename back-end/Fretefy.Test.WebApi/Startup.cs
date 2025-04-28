@@ -40,6 +40,18 @@ namespace Fretefy.Test.WebApi
                     Version = "v1"
                 });
             });
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowFrontend", policy =>
+                {
+                    policy
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyHeader()
+                        .AllowAnyMethod()
+                        .AllowCredentials();
+                });
+            });
         }
 
         private void ConfigureDomainService(IServiceCollection services)
@@ -68,6 +80,8 @@ namespace Fretefy.Test.WebApi
                     c.RoutePrefix = string.Empty; 
                 });
             }
+
+            app.UseCors("AllowFrontend");
 
             app.UseRouting();
 

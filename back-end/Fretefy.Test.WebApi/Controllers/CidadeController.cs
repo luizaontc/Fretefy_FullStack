@@ -18,6 +18,7 @@ namespace Fretefy.Test.WebApi.Controllers
         }
 
         [HttpGet]
+        [Route("/buscarCidades")]
         public IActionResult List([FromQuery] string uf, [FromQuery] string terms)
         {
             IEnumerable<Cidade> cidades;

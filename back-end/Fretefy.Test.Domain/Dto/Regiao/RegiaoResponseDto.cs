@@ -1,4 +1,5 @@
 ﻿using Fretefy.Test.Domain.Dto;
+using Fretefy.Test.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,7 +10,6 @@ namespace Fretefy.Test.Application.Dto
     {
         public Guid Id { get; set; }
         public string Nome { get; set; }
-        public string Uf { get; set; }
-        public List<CidadeResponseDto> Cidades { get; set; }
+        public List<Cidade> Cidades { get; set; }
     }
 }
